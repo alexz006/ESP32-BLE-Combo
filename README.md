@@ -5,6 +5,8 @@ which is based on the [BLE-Keyboard](https://github.com/T-vK/ESP32-BLE-Keyboard)
 
 This library is a wrapper of the above fork in order to make it compatible with the [Keyboard](https://www.arduino.cc/reference/en/language/functions/usb/keyboard/) and [Mouse](https://www.arduino.cc/reference/en/language/functions/usb/mouse/).
 
+If you also want gamepad support check this awesome [fork](https://github.com/juanmcasillas/ESP32-BLE-Combo) by [juanmcasillas](https://github.com/juanmcasillas/).
+
 ## Features
 
  - All the features of the original library.
