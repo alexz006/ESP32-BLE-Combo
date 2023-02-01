@@ -164,9 +164,9 @@ bleDevice.isConnected(); //returns true if the device is connected to a host
 You can now query the state of the special Keys by using the variables (thanks [kilr00y](https://github.com/T-vK/ESP32-BLE-Keyboard/issues/179))
 
 ``` C++
-bleKeyboard.NumLockOn
-bleKeyboard.CapsLockOn
-bleKeyboard.ScrollLockOn
+bleDevice.NumLockOn
+bleDevice.CapsLockOn
+bleDevice.ScrollLockOn
 ```
 
 
