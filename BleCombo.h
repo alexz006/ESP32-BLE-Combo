@@ -90,12 +90,16 @@ private:
   static bool isInitialized;
 
 public:
-  BleCombo(std::string deviceName = "ESP32 Combo HID", std::string deviceManufacturer = "Espressif", uint8_t batteryLevel = 100);
+  BleCombo(std::string deviceName = "ESP32 Combo", std::string deviceManufacturer = "Espressif", uint8_t batteryLevel = 100);
   void setBatteryLevel(uint8_t level);
   void setName(std::string deviceName);
+  void setManufacturer(std::string deviceManufacturer);
   void setDelay(uint32_t ms);
   bool isConnected(void);
-
+  bool NumLockOn;
+  bool CapsLockOn;
+  bool ScrollLockOn;
+  
 protected:
   void begin(void);
   void end(void);

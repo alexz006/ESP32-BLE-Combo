@@ -172,7 +172,8 @@ void BleCombo::begin(void)
 #else
 
 		BLESecurity *pSecurity = new BLESecurity();
-		pSecurity->setAuthenticationMode(ESP_LE_AUTH_REQ_SC_MITM_BOND);
+		//pSecurity->setAuthenticationMode(ESP_LE_AUTH_REQ_SC_MITM_BOND);
+		pSecurity->setAuthenticationMode(ESP_LE_AUTH_BOND);
 
 #endif // USE_NIMBLE
 
@@ -213,6 +214,11 @@ void BleCombo::setBatteryLevel(uint8_t level)
 void BleCombo::setName(std::string deviceName)
 {
 	this->deviceName = deviceName;
+}
+
+void BleCombo::setManufacturer(std::string deviceManufacturer)
+{
+	this->deviceManufacturer = deviceManufacturer;
 }
 
 /**
@@ -666,11 +672,23 @@ void BleCombo::onDisconnect(BLEServer *pServer)
 #endif // !USE_NIMBLE
 }
 
+// https://github.com/T-vK/ESP32-BLE-Keyboard/issues/179
+typedef struct{
+        uint8_t bmNumLock : 1;
+        uint8_t bmCapsLock : 1;
+        uint8_t bmScrollLock : 1;
+        uint8_t bmReserved : 5;
+} KbdLEDsType;
 void BleCombo::onWrite(BLECharacteristic *me)
 {
-	uint8_t *value = (uint8_t *)(me->getValue().c_str());
-	(void)value;
-	ESP_LOGI(LOG_TAG, "special keys: %d", *value);
+	//uint8_t *value = (uint8_t *)(me->getValue().c_str());
+	//(void)value;
+	//ESP_LOGI(LOG_TAG, "special keys: %d", *value);
+	
+	KbdLEDsType* myKbdLEDs = (KbdLEDsType*)(me->getValue().c_str());
+	NumLockOn    = myKbdLEDs->bmNumLock;
+	CapsLockOn   = myKbdLEDs->bmCapsLock;
+	ScrollLockOn = myKbdLEDs->bmScrollLock;
 }
 
 void BleCombo::delay_ms(uint64_t ms)
