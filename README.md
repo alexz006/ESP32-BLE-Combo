@@ -48,86 +48,86 @@ uint8_t BatteryLevel = 98;
 unsigned long previousMillisBattery = 0; 
 
 void setup() {
-	Serial.begin(115200);
+  Serial.begin(115200);
 
-	bleDevice.setName("ESP32 Combo"); //call before any of the begin functions to change the device name.
-	bleDevice.setManufacturer("Espressif"); //call before any of the begin functions to change the Manufacturer name.
-	bleDevice.setDelay(100); //change the delay between each key event
+  bleDevice.setName("ESP32 Combo"); //call before any of the begin functions to change the device name.
+  bleDevice.setManufacturer("Espressif"); //call before any of the begin functions to change the Manufacturer name.
+  bleDevice.setDelay(100); //change the delay between each key event
 
-	Keyboard.begin();
+  Keyboard.begin();
 
-	delay(3000);
-	while (!bleDevice.isConnected()) {
-		Serial.print(".");
-		delay(250);
-	}
-	delay(1000);
+  delay(3000);
+  while (!bleDevice.isConnected()) {
+    Serial.print(".");
+    delay(250);
+  }
+  delay(1000);
 
-	bleDevice.setBatteryLevel(BatteryLevel); //change the battery level
+  bleDevice.setBatteryLevel(BatteryLevel); //change the battery level
 
-	Serial.println("...");
-	Serial.println("BLE Connected!");
+  Serial.println("...");
+  Serial.println("BLE Connected!");
 }
 
 void loop() {
-	Serial.println("Waiting 5 seconds...");
-	delay(5000);
-	if(bleDevice.isConnected()) {
+  Serial.println("Waiting 5 seconds...");
+  delay(5000);
+  if(bleDevice.isConnected()) {
 
-		Serial.println("Sending 'Hello world'...");
-		Keyboard.print("Hello world");
-		delay(1000);
+    Serial.println("Sending 'Hello world'...");
+    Keyboard.print("Hello world");
+    delay(1000);
 
-		Serial.println("Sending Enter key...");
-		Keyboard.write(KEY_RETURN);
-		delay(1000);
+    Serial.println("Sending Enter key...");
+    Keyboard.write(KEY_RETURN);
+    delay(1000);
 
-		Serial.println("Sending Play/Pause media key...");
-		Keyboard.write(KEY_MEDIA_PLAY_PAUSE);
-		delay(1000);
+    Serial.println("Sending Play/Pause media key...");
+    Keyboard.write(KEY_MEDIA_PLAY_PAUSE);
+    delay(1000);
 
-		//Serial.println("Sending Ctrl+Alt+Delete...");
-		//Keyboard.press(KEY_LEFT_CTRL);
-		//Keyboard.press(KEY_LEFT_ALT);
-		//Keyboard.press(KEY_DELETE);
-		//delay(100);
-		//Keyboard.releaseAll();
-		//delay(1000);
+    //Serial.println("Sending Ctrl+Alt+Delete...");
+    //Keyboard.press(KEY_LEFT_CTRL);
+    //Keyboard.press(KEY_LEFT_ALT);
+    //Keyboard.press(KEY_DELETE);
+    //delay(100);
+    //Keyboard.releaseAll();
+    //delay(1000);
 
-		Serial.println("Left click");
-		Mouse.click(MOUSE_LEFT);
-		delay(500);
+    Serial.println("Left click");
+    Mouse.click(MOUSE_LEFT);
+    delay(500);
 
-		Serial.println("Right click");
-		Mouse.click(MOUSE_RIGHT);
-		delay(500);
+    Serial.println("Right click");
+    Mouse.click(MOUSE_RIGHT);
+    delay(500);
 
-		Serial.println("Scroll wheel click");
-		Mouse.click(MOUSE_MIDDLE);
-		delay(500);
+    Serial.println("Scroll wheel click");
+    Mouse.click(MOUSE_MIDDLE);
+    delay(500);
 
-		Serial.println("Back button click");
-		Mouse.click(MOUSE_BACK);
-		delay(500);
+    Serial.println("Back button click");
+    Mouse.click(MOUSE_BACK);
+    delay(500);
 
-		Serial.println("Forward button click");
-		Mouse.click(MOUSE_FORWARD);
-		delay(500);
+    Serial.println("Forward button click");
+    Mouse.click(MOUSE_FORWARD);
+    delay(500);
 
-		Serial.println("Click left+right mouse button at the same time");
-		Mouse.click(MOUSE_LEFT | MOUSE_RIGHT);
-		delay(500);
+    Serial.println("Click left+right mouse button at the same time");
+    Mouse.click(MOUSE_LEFT | MOUSE_RIGHT);
+    delay(500);
 
-		Serial.println("Click left+right mouse button and scroll wheel at the same time");
-		Mouse.click(MOUSE_LEFT | MOUSE_RIGHT | MOUSE_MIDDLE);
+    Serial.println("Click left+right mouse button and scroll wheel at the same time");
+    Mouse.click(MOUSE_LEFT | MOUSE_RIGHT | MOUSE_MIDDLE);
 
-		unsigned long currentMillis = millis();
-		if(BatteryLevel>=4 && currentMillis - previousMillisBattery >= 3000) { // gradual discharge of the battery
-			previousMillisBattery = currentMillis;
-			BatteryLevel = BatteryLevel - 1;
-			bleDevice.setBatteryLevel(BatteryLevel);
-		}
-	}
+    unsigned long currentMillis = millis();
+    if(BatteryLevel>=4 && currentMillis - previousMillisBattery >= 3000) { // gradual discharge of the battery
+      previousMillisBattery = currentMillis;
+      BatteryLevel = BatteryLevel - 1;
+      bleDevice.setBatteryLevel(BatteryLevel);
+    }
+  }
 }
 ```
 
@@ -159,6 +159,16 @@ bleDevice.setBatteryLevel(80); //change the battery level to 80%
 bleDevice.setDelay(100); //change the delay between each key event
 bleDevice.isConnected(); //returns true if the device is connected to a host
 ```
+
+### Read Numlock/Capslock/Scrolllock state
+You can now query the state of the special Keys by using the variables (thanks [kilr00y](https://github.com/T-vK/ESP32-BLE-Keyboard/issues/179))
+
+``` C++
+bleKeyboard.NumLockOn
+bleKeyboard.CapsLockOn
+bleKeyboard.ScrollLockOn
+```
+
 
 ## NimBLE-Mode
 The NimBLE mode enables a significant saving of RAM and FLASH memory.
