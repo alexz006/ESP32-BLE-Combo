@@ -1,3 +1,4 @@
+//#define USE_NIMBLE
 #if defined(USE_NIMBLE)
 #include <NimBLEDevice.h>
 #include <NimBLEServer.h>
