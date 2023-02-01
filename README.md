@@ -52,7 +52,7 @@ void setup() {
 
   bleDevice.setName("ESP32 Combo"); //call before any of the begin functions to change the device name.
   bleDevice.setManufacturer("Espressif"); //call before any of the begin functions to change the Manufacturer name.
-  bleDevice.setDelay(100); //change the delay between each key event
+  bleDevice.setDelay(40); //change the delay between each key event #if defined(USE_NIMBLE)
 
   Keyboard.begin();
 
