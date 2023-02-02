@@ -1,4 +1,4 @@
-//#define USE_NIMBLE
+#define USE_NIMBLE
 #if defined(USE_NIMBLE)
 #include <NimBLEDevice.h>
 #include <NimBLEServer.h>
@@ -559,6 +559,7 @@ void BleCombo::releaseAll(void)
 	_mediaKeyReport[0] = 0;
 	_mediaKeyReport[1] = 0;
 	sendReport(&_keyReport);
+	sendReport(&_mediaKeyReport);
 
 	buttons(0);
 }
