@@ -1,4 +1,6 @@
+// uncomment the following line to use NimBLE library
 //#define USE_NIMBLE
+
 #if defined(USE_NIMBLE)
 #include <NimBLEDevice.h>
 #include <NimBLEServer.h>
@@ -207,8 +209,16 @@ bool BleCombo::isConnected(void)
 void BleCombo::setBatteryLevel(uint8_t level)
 {
 	this->batteryLevel = level;
-	if (hid != 0)
+	if (hid != 0){
 		this->hid->setBatteryLevel(this->batteryLevel);
+		
+#if defined(USE_NIMBLE)
+
+		this->hid->batteryLevel()->notify();
+		
+#endif // USE_NIMBLE
+
+	}
 }
 
 // must be called before begin in order to set the name
