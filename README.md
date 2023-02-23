@@ -1,9 +1,11 @@
 # ESP32 BLE Keyboard & Mouse Combo library
 
-This is a fork of the original [ESP32 BLE HID Combo library](https://github.com/peter-pakanun/ESP32-BLE-Combo)
+This is a fork of the original [ESP32 BLE Keyboard & Mouse Combo library](https://github.com/Georgegipa/ESP32-BLE-Combo) -> [ESP32 BLE HID Combo library](https://github.com/peter-pakanun/ESP32-BLE-Combo)
 which is based on the [BLE-Keyboard](https://github.com/T-vK/ESP32-BLE-Keyboard).
 
 This library is a wrapper of the above fork in order to make it compatible with the [Keyboard](https://www.arduino.cc/reference/en/language/functions/usb/keyboard/) and [Mouse](https://www.arduino.cc/reference/en/language/functions/usb/mouse/).
+
+This library fixes [the bugs found](https://github.com/T-vK/ESP32-BLE-Keyboard/issues) and adds some improvements.
 
 ## Features
 
