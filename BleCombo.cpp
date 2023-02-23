@@ -263,10 +263,8 @@ void BleCombo::sendReport(KeyReport *keys)
 	{
 		this->inputKeyboard->setValue((uint8_t *)keys, sizeof(KeyReport));
 		this->inputKeyboard->notify();
-#if defined(USE_NIMBLE)
 		// vTaskDelay(delayTicks);
 		this->delay_ms(_delay_ms);
-#endif // USE_NIMBLE
 	}
 }
 
@@ -276,10 +274,8 @@ void BleCombo::sendReport(MediaKeyReport *keys)
 	{
 		this->inputMediaKeys->setValue((uint8_t *)keys, sizeof(MediaKeyReport));
 		this->inputMediaKeys->notify();
-#if defined(USE_NIMBLE)
 		// vTaskDelay(delayTicks);
 		this->delay_ms(_delay_ms);
-#endif // USE_NIMBLE
 	}
 }
 
@@ -627,10 +623,8 @@ void BleCombo::move(signed char x, signed char y, signed char wheel, signed char
 		m[4] = hWheel;
 		this->inputMouse->setValue(m, 5);
 		this->inputMouse->notify();
-#if defined(USE_NIMBLE)
 		// vTaskDelay(delayTicks);
 		this->delay_ms(_delay_ms);
-#endif // USE_NIMBLE
 	}
 }
 
@@ -705,18 +699,18 @@ void BleCombo::onWrite(BLECharacteristic *me)
 
 void BleCombo::delay_ms(uint64_t ms)
 {
-	uint64_t m = esp_timer_get_time();
-	if (ms)
-	{
-		uint64_t e = (m + (ms * 1000));
-		if (m > e)
-		{ // overflow
-			while (esp_timer_get_time() > e)
-			{
-			}
-		}
-		while (esp_timer_get_time() < e)
-		{
-		}
-	}
+    uint64_t m = esp_timer_get_time();
+    if (ms > 0)
+    {
+        uint64_t e = m + (ms * 1000);
+        if (e < m) // overflow
+        {
+            while (esp_timer_get_time() > e)
+            {
+            }
+        }
+        while (esp_timer_get_time() < e)
+        {
+        }
+    }
 }
